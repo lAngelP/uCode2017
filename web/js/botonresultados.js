@@ -16,3 +16,9 @@ function myFunction(nf,nt,face,tw){
 	result= result+ "</div>";
 	document.getElementsById('carouseltw').innerHTML=resul;
 }
+function myFunction(n,atributos){
+	for (var i = n - 1; i >= 0; i--) {
+		radiosOpcionales="<input type=\"radio\" name=\"gender\" value=\""+atributos[i]+"\">" atributos[i];  
+	}
+	document.getElementsById('carouselfb').innerHTML=resul;
+}
