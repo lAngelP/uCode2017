@@ -23,9 +23,10 @@ function getCookie(cname) {
 
 $(document).ready(
 	function(){
-		$('#login').click(function(){
-			var user = $("#user").val();
-			var pass = $("#pass").val();
+		$('#loginBtn').click(function(){
+			alert("Login");
+			var user = $("#userLogin").val();
+			var pass = $("#passLogin").val();
 			if(user == "" || pass == ""){
 				if(user == ""){
 					$('div[id="user_container"]').addClass("has-error");
@@ -35,10 +36,12 @@ $(document).ready(
 					$('div[id="pass_container"]').addClass("has-error");
 				}
 			}else{
+				alert("Recv0");
 				$.post("/ucode2017/lib/login.php", {user:user, pass:pass},
 						function(data){
+							alert("Recv");
 							var json = $.parseJSON(data);
-							$('#message').html(json.message);
+							$('#messageLogin').html(json.message);
 							var error = json.error;
 							
 							if(error == 0){
@@ -76,7 +79,7 @@ $(document).ready(
 						function(data){
 							var json = $.parseJSON(data);
 							$('#message').html(json.message);
-							int error = json.error;
+							var error = json.error;
 							
 							if(error == 0){
 								setCookie("user", user, 30);
