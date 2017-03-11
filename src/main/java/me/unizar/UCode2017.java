@@ -42,4 +42,8 @@ public class UCode2017 {
 	public static MySQLConnection getSql() {
 		return SQL;
 	}
+
+	public static Logger getLogger() {
+		return LOGGER;
+	}
 }

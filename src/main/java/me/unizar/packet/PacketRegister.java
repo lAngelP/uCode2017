@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 import me.unizar.crypt.Crypter;
+import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
 import me.unizar.sql.parameters.SQLParameterString;
 
@@ -21,11 +22,16 @@ public class PacketRegister implements IPacket {
 			pass = object.getString("pass");
 			email = object.getString("email");
 		} catch (JSONException ex) {
-			ManagerPacket.sendErrorMessage(ctx, "Malformed login packet.");
+			ManagerPacket.sendErrorMessage(ctx, "Malformed register packet.");
+			return;
+		}
+		
+		if(user.isEmpty() || pass.isEmpty() || email.isEmpty()){
+			ManagerPacket.sendErrorMessage(ctx, "Malformed register packet.");
 			return;
 		}
 
-		if (UCode2017.getSql().runAsyncNumRows("users", "`name` = '" + user + "'") > 0) {
+		if (SQLHelper.getUsersWithName(user) > 0) {
 			ManagerPacket.sendErrorMessage(ctx, "User already exists.");
 			return;
 		}
@@ -40,7 +46,6 @@ public class PacketRegister implements IPacket {
 	}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
-	}
+	public void send(ChannelHandlerContext ctx, JSONObject object) {}
 
 }

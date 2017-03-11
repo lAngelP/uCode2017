@@ -10,6 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 import me.unizar.crypt.Crypter;
 import me.unizar.sql.MySQLConnection;
+import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
 import me.unizar.sql.parameters.SQLParameterString;
 
@@ -28,7 +29,12 @@ public class PacketLogin implements IPacket{
 			return;
 		}
 		
-		if(UCode2017.getSql().runAsyncNumRows("users", "`name` = '"+user+"'") <= 0){
+		if(user.isEmpty() || pass.isEmpty()){
+			ManagerPacket.sendErrorMessage(ctx, "Malformed login packet.");
+			return;
+		}
+		
+		if(SQLHelper.getUsersWithName(user) <= 0){
 			ManagerPacket.sendErrorMessage(ctx, "Invalid username/password.");
 			return;
 		}

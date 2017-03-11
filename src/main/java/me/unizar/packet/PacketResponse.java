@@ -21,6 +21,7 @@ public class PacketResponse implements IPacket{
 
 	@Override
 	public void send(ChannelHandlerContext ctx, JSONObject object) {
+		object.append("pId", PACKET_ID);
 		object.append("error", error);
 		object.append("message", msg);
 	}
