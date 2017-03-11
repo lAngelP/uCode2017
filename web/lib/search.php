@@ -1,11 +1,10 @@
 <?php
+include "client.php";
 
 if(!isset($_POST["user"]) || !isset($_POST["search"])){
 	echo getJSONMessage(true, "Invalid parameters.");
 	exit(1);
 }
-
-include "client.php";
 
 if(!fwrite($fp, getJSONSearch($_POST['user'], $_POST['search']))){
 	echo getJSONMessage(true, "Cannot write to socket.");

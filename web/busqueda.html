@@ -167,7 +167,7 @@
     </section>
     <footer>
         <div class="container" align="center">
-            <p>&copy; 2017 BibiTeam. uCodeES. Reto Oesia</p>
+            <p>&copy; 2017 BibiTeam. uCodeES. Reto Oes&iacute;a</p>
         </div>
     </footer>
 
@@ -186,6 +186,15 @@
 
     <!-- Theme JavaScript -->
     <script src="js/agency.min.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+			var user = getCookie("user");
+			if(user == ""){
+				window.location.replace("/ucode2017/index.html");
+			}
+		});
+	</script>
 
 </body>
 

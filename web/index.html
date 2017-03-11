@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Sign-Up/Login Form</title>
@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   
 </head>
-<body onload="onLoad()">
+<body>
   <div class="form">
       <ul class="tab-group">
         <li class="tab active"><a data-toggle="tab" href="#signup">Registrate</a></li>
@@ -119,12 +119,12 @@
 			}
 			return "";
 		}
-		 function onLoad(){
+		 $(document).ready(function() {
 			var username = getCookie("user");
 			if (username != "") {
 				window.location.replace("/ucode2017/busqueda.html");
 			}
-		 };
+		 });
 	</script>
 </body>
 </html>
