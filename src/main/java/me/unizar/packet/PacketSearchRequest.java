@@ -4,9 +4,9 @@ import org.json.JSONObject;
 
 import io.netty.channel.ChannelHandlerContext;
 
-public class PacketAddNetwork implements IPacket{
+public class PacketSearchRequest implements IPacket{
 	
-	public static final int PACKET_ID = 3;
+	public static final int PACKET_ID = 7;
 
 	@Override
 	public void handle(ChannelHandlerContext ctx, JSONObject object) {
