@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   
 </head>
-<body>
+<body onload="onLoad()">
   <div class="form">
       <ul class="tab-group">
         <li class="tab active"><a data-toggle="tab" href="#signup">Registrate</a></li>
@@ -62,25 +62,29 @@
         <div id="login">   
           <h1>Bienvenido!</h1>
           
-          <form action="/" method="post">
+          <form>
+		  
+		  <div class="top-row">
+				<div id="messageLogin"></div>
+         </div>
           
             <div class="field-wrap user_container">
             <label>
               Usuario<span class="req">*</span>
             </label>
-            <input id="user" type="email"required autocomplete="off"/>
+            <input id="userLogin" type="text" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap pass_container">
             <label>
               Contraseña<span class="req">*</span>
             </label>
-            <input id="pass" type="password" required autocomplete="off"/>
+            <input id="passLogin" type="password" required autocomplete="off"/>
           </div>
           
           <p class="forgot"><a href="#">Olvidaste tu contraseña?</a></p>
           
-          <button type="button" id="login" class="button button-block"/>Iniciar sesión</button>
+          <button id="loginBtn" type="button" class="button button-block"/>Iniciar sesión</button>
           
           </form>
 
@@ -115,8 +119,8 @@
 			}
 			return "";
 		}
-		 object.onload = function(){
-			var username = getCookie("username");
+		 function onLoad(){
+			var username = getCookie("user");
 			if (username != "") {
 				window.location.replace("/ucode2017/busqueda.html");
 			}
