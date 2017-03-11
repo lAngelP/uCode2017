@@ -3,7 +3,7 @@ package me.unizar.crypt;
 /**
  * Created by Angel on 10/03/2017.
  */
-public class CryptTest {
+public class Crypter {
 
 	/*public static void main(String[] args) throws FileNotFoundException{
 		System.setOut(new PrintStream(new FileOutputStream(new File("f.dat"))));
@@ -12,7 +12,7 @@ public class CryptTest {
 	}*/
 
 	// Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
-	private static int workload = 10;
+	private static int workload = 5;
 
 	/**
 	 * This method can be used to generate a string representing an account password
