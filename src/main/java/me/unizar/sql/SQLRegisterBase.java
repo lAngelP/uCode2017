@@ -11,6 +11,7 @@ public class SQLRegisterBase {
 	public static final QueryId GET_NETWORKS;
 	public static final QueryId ADD_FILTER;
 	public static final QueryId REMOVE_FILTER;
+	public static final QueryId GET_FILTER;
 	public static final QueryId GET_FILTERS;
 
 	static {
@@ -24,6 +25,7 @@ public class SQLRegisterBase {
 		ADD_FILTER = SQLQueries.registerQuery(new SQLQueryData("INSERT INTO `filters`(`user`, `filter`) VALUES (?, ?);", 2));
 		REMOVE_FILTER = SQLQueries.registerQuery(new SQLQueryData("DELETE FROM `filters` WHERE `filterId` = ?;", 1));
 		GET_FILTERS = SQLQueries.registerQuery(new SQLQueryData("SELECT `filterId`, `filter` FROM `filters` WHERE `user` = ?;", 1));
+		GET_FILTER = SQLQueries.registerQuery(new SQLQueryData("SELECT `filter` FROM `filters` WHERE `filterId` = ?;", 1));
 	}
 
 }
