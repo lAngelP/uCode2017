@@ -1,9 +1,10 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
@@ -14,7 +15,7 @@ public class PacketAddNetwork implements IPacket {
 	public static final int PACKET_ID = 3;
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {
+	public boolean handle(PrintWriter ctx, JSONObject object) {
 		String user, oauth, value, type;
 
 		try {
@@ -24,32 +25,33 @@ public class PacketAddNetwork implements IPacket {
 			type = ManagerPacket.getNetwork(object.getInt("type"));
 		} catch (JSONException e) {
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-			return;
+			return true;
 		}
 		
 		if(user.isEmpty() || oauth.isEmpty() || value.isEmpty()){
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-			return;
+			return true;
 		}
 		
 		if(type == null){
 			ManagerPacket.sendErrorMessage(ctx, "Invalid Network");
-			return;
+			return true;
 		}
 		
 		if(SQLHelper.getUsersWithName(user) <= 0){
 			ManagerPacket.sendErrorMessage(ctx, "Invalid username");
-			return;
+			return true;
 		}
 
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.ADD_NETWORK, new SQLParameterString(user),
 				new SQLParameterString(type), new SQLParameterString(value),
 				new SQLParameterString(oauth));
 		ManagerPacket.sendSuccessMessage(ctx, "Network has been added!");
+		return false;
 	}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
+	public void send(PrintWriter ctx, JSONObject object) {
 	}
 
 }

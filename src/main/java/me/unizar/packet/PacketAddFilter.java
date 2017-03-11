@@ -1,9 +1,10 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
@@ -14,7 +15,7 @@ public class PacketAddFilter implements IPacket {
 	public static final int PACKET_ID = 9;
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {
+	public boolean handle(PrintWriter ctx, JSONObject object) {
 		String user, filter;
 
 		try {
@@ -22,26 +23,27 @@ public class PacketAddFilter implements IPacket {
 			filter = object.getString("filter");
 		} catch (JSONException e) {
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-			return;
+			return true;
 		}
 		
 		if(user.isEmpty() || filter.isEmpty()){
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-			return;
+			return true;
 		}
 		
 		if(SQLHelper.getUsersWithName(user) <= 0){
 			ManagerPacket.sendErrorMessage(ctx, "Invalid username");
-			return;
+			return true;
 		}
 
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.ADD_FILTER, new SQLParameterString(user),
 				new SQLParameterString(filter));
 		ManagerPacket.sendSuccessMessage(ctx, "Filter has been added!");
+		return false;
 	}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
+	public void send(PrintWriter ctx, JSONObject object) {
 	}
 
 }

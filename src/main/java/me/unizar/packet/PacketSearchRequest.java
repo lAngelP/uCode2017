@@ -1,8 +1,9 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
+
 import org.json.JSONObject;
 
-import io.netty.channel.ChannelHandlerContext;
 import me.unizar.network.Network;
 import me.unizar.network.Network.NetworkType;
 
@@ -14,7 +15,7 @@ public class PacketSearchRequest implements IPacket{
 	private Network tw = new Network(NetworkType.TWITTER);
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {}
+	public boolean handle(PrintWriter ctx, JSONObject object) {return true;}
 
 	public void addToNetwork(NetworkType type, String user, String post){
 		switch (type) {
@@ -30,7 +31,7 @@ public class PacketSearchRequest implements IPacket{
 	}
 	
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
+	public void send(PrintWriter ctx, JSONObject object) {
 		object.append("pId", PACKET_ID);
 		fb.generateJSON(object);
 		tw.generateJSON(object);

@@ -1,9 +1,10 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
@@ -14,7 +15,7 @@ public class PacketRemoveFilter implements IPacket{
 	public static final int PACKET_ID = 10;
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {
+	public boolean handle(PrintWriter ctx, JSONObject object) {
 		String user;
 		int id;
 		
@@ -23,23 +24,24 @@ public class PacketRemoveFilter implements IPacket{
 			id = object.getInt("id");
 		}catch(JSONException e){
 			ManagerPacket.sendErrorMessage(ctx, "Malformed RemoveFilter packet");
-			return;
+			return true;
 		}
 		
 		if(user.isEmpty() || id < 0){
 			ManagerPacket.sendErrorMessage(ctx, "Malformed RemoveFilter packet");
-			return;
+			return true;
 		}
 		
 		if(SQLHelper.getFilterCount(id, user) <= 0){
 			ManagerPacket.sendErrorMessage(ctx, "No Filter found");
-			return;
+			return true;
 		}
 		
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.REMOVE_FILTER, new SQLParameterInteger(id));
+		return false;
 	}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {}
+	public void send(PrintWriter ctx, JSONObject object) {}
 
 }

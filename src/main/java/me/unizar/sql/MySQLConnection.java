@@ -35,8 +35,8 @@ public class MySQLConnection {
 	public MySQLConnection(String host, int port, String user, String pass, String db) {
 		con = new HikariDataSource();
 		con.setMaximumPoolSize(10);
-		con.setPoolName("DubAPI_SQL");
-		con.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+		con.setPoolName("uCode2017_SQL");
+		con.setDataSourceClassName("org.mariadb.jdbc.MySQLDataSource");
 		con.addDataSourceProperty("serverName", host);
 		con.addDataSourceProperty("port", port);
 		con.addDataSourceProperty("databaseName", db);

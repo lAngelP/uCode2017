@@ -1,8 +1,8 @@
 package me.unizar.packet;
 
-import org.json.JSONObject;
+import java.io.PrintWriter;
 
-import io.netty.channel.ChannelHandlerContext;
+import org.json.JSONObject;
 
 public class PacketResponse implements IPacket{
 	
@@ -17,10 +17,10 @@ public class PacketResponse implements IPacket{
 	}
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {}
+	public boolean handle(PrintWriter ctx, JSONObject object) {return true;}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
+	public void send(PrintWriter ctx, JSONObject object) {
 		object.append("pId", PACKET_ID);
 		object.append("error", error);
 		object.append("message", msg);

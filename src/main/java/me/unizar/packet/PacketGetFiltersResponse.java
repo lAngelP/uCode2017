@@ -1,9 +1,9 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import io.netty.channel.ChannelHandlerContext;
 
 public class PacketGetFiltersResponse implements IPacket{
 	
@@ -26,10 +26,10 @@ public class PacketGetFiltersResponse implements IPacket{
 	}
 
 	@Override
-	public void handle(ChannelHandlerContext ctx, JSONObject object) {}
+	public boolean handle(PrintWriter ctx, JSONObject object) {return true;}
 
 	@Override
-	public void send(ChannelHandlerContext ctx, JSONObject object) {
+	public void send(PrintWriter ctx, JSONObject object) {
 		obj.append("pId", PACKET_ID);
 		obj.append("filterCount", filters);
 		object = obj;

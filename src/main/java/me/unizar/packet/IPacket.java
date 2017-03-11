@@ -1,13 +1,13 @@
 package me.unizar.packet;
 
-import org.json.JSONObject;
+import java.io.PrintWriter;
 
-import io.netty.channel.ChannelHandlerContext;
+import org.json.JSONObject;
 
 public interface IPacket {
 	
-	void handle(ChannelHandlerContext ctx, JSONObject object);
+	boolean handle(PrintWriter ctx, JSONObject object);
 	
-	void send(ChannelHandlerContext ctx,JSONObject object);
+	void send(PrintWriter ctx,JSONObject object);
 
 }

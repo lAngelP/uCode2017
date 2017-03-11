@@ -1,11 +1,11 @@
 package me.unizar.packet;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
 
-import io.netty.channel.ChannelHandlerContext;
 import me.unizar.UCode2017;
 
 public class ManagerPacket {
@@ -32,24 +32,20 @@ public class ManagerPacket {
 		}
 	}
 
-	public static void sendErrorMessage(ChannelHandlerContext ctx, String msg) {
-		JSONObject json = new JSONObject();
-		PacketResponse packet = new PacketResponse(msg, true);
-		packet.send(ctx, json);
-		ctx.writeAndFlush(json.toString());
+	public static void sendErrorMessage(PrintWriter ctx, String msg) {
+		sendPacket(ctx, new PacketResponse(msg, true));
 	}
 
-	public static void sendSuccessMessage(ChannelHandlerContext ctx, String msg) {
-		JSONObject json = new JSONObject();
-		PacketResponse packet = new PacketResponse(msg, false);
-		packet.send(ctx, json);
-		ctx.writeAndFlush(json.toString());
+	public static void sendSuccessMessage(PrintWriter ctx, String msg) {
+		sendPacket(ctx, new PacketResponse(msg, false));
+
 	}
-	
-	public static void sendPacket(ChannelHandlerContext ctx, IPacket packet) {
+
+	public static void sendPacket(PrintWriter ctx, IPacket packet) {
 		JSONObject json = new JSONObject();
 		packet.send(ctx, json);
-		ctx.writeAndFlush(json.toString());
+
+		ctx.println(json.toString());
 	}
 
 	public static String getNetwork(int type) {
@@ -62,7 +58,7 @@ public class ManagerPacket {
 			return null;
 		}
 	}
-	
+
 	public static int getNetwork(String type) {
 		switch (type) {
 		case "TWITTER":
@@ -73,8 +69,8 @@ public class ManagerPacket {
 			return -1;
 		}
 	}
-	
-	static {
+
+	public static void register(){
 		registerPacket(PacketResponse.PACKET_ID, PacketResponse.class);
 
 		registerPacket(PacketLogin.PACKET_ID, PacketLogin.class);
@@ -87,10 +83,11 @@ public class ManagerPacket {
 
 		registerPacket(PacketSearch.PACKET_ID, PacketSearch.class);
 		registerPacket(PacketSearchRequest.PACKET_ID, PacketSearchRequest.class);
-		
+
 		registerPacket(PacketAddFilter.PACKET_ID, PacketAddFilter.class);
 		registerPacket(PacketRemoveFilter.PACKET_ID, PacketRemoveFilter.class);
 		registerPacket(PacketGetFilters.PACKET_ID, PacketGetFilters.class);
 		registerPacket(PacketGetFiltersResponse.PACKET_ID, PacketGetFiltersResponse.class);
+		System.out.println("Reg");
 	}
 }
