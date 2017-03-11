@@ -87,5 +87,10 @@ public class ManagerPacket {
 
 		registerPacket(PacketSearch.PACKET_ID, PacketSearch.class);
 		registerPacket(PacketSearchRequest.PACKET_ID, PacketSearchRequest.class);
+		
+		registerPacket(PacketAddFilter.PACKET_ID, PacketAddFilter.class);
+		registerPacket(PacketRemoveFilter.PACKET_ID, PacketRemoveFilter.class);
+		registerPacket(PacketGetFilters.PACKET_ID, PacketGetFilters.class);
+		registerPacket(PacketGetFiltersResponse.PACKET_ID, PacketGetFiltersResponse.class);
 	}
 }

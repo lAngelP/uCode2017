@@ -5,25 +5,24 @@ import org.json.JSONObject;
 
 import io.netty.channel.ChannelHandlerContext;
 
-public class PacketGetNetworksResponse implements IPacket{
+public class PacketGetFiltersResponse implements IPacket{
 	
-	public static final int PACKET_ID = 6;
+	public static final int PACKET_ID = 12;
 	
 	private JSONObject obj = new JSONObject();
-	private int networks = 0;
+	private int filters = 0;
 	
-	public void addNetwork(int id, int type, String name){
-		if(!obj.has("networks")){
-			obj.append("networks", new JSONArray());
+	public void addFilter(int id, String value){
+		if(!obj.has("filters")){
+			obj.append("filters", new JSONArray());
 		}
 		
 		JSONObject base = new JSONObject();
 		base.append("id", id);
-		base.append("type", type);
-		base.append("name", name);
+		base.append("value", value);
 		
-		obj.getJSONArray("networks").put(base);
-		networks++;
+		obj.getJSONArray("filters").put(base);
+		filters++;
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class PacketGetNetworksResponse implements IPacket{
 	@Override
 	public void send(ChannelHandlerContext ctx, JSONObject object) {
 		obj.append("pId", PACKET_ID);
-		obj.append("networkCount", networks);
+		obj.append("filterCount", filters);
 		object = obj;
 	}
 	
