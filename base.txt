@@ -1,0 +1,8 @@
+<html>
+
+<body>
+<iframe border=0 frameborder=0 height=250 width=550
+ src="http://twitframe.com/show?url=https://twitter.com/jack/status/20"></iframe> 
+ <iframe src="https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/20531316728/posts/10154009990506729/&width=500&show_text=true&height=290&appId" width="500" height="290" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+</body>
+</html>

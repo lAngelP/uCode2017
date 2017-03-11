@@ -21,30 +21,30 @@ public class UCode2017 {
 
 	public static void main(String[] args) throws Exception {
 		// Configure SSL.
-		SQL = new MySQLConnection("sv20.internaldub.com", "ucode", "6866a861f78",
-				"ucode2017");
+		SQL = new MySQLConnection("sv20.internaldub.com", "ucode", "6866a861f78", "ucode2017");
 		ManagerPacket.register();
-		try ( 
-			    ServerSocket serverSocket = new ServerSocket(PORT);
-			    Socket clientSocket = serverSocket.accept();
-			    PrintWriter out =
-			        new PrintWriter(clientSocket.getOutputStream(), true);
-			    BufferedReader in = new BufferedReader(
-			        new InputStreamReader(clientSocket.getInputStream()));
-				){
-			     System.err.println("Client on");
-			    // Initiate conversation with client
-			    PHPProtocol phpP = new PHPProtocol();
-			  boolean error = false;
-			  char[] buf = new char[4096];
+		ServerSocket serverSocket = new ServerSocket(PORT);
+		boolean end = false;
+		while (!end) {
+			System.err.println("Awaiting new client...");
+			Socket clientSocket = serverSocket.accept();
+			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			System.err.println("Client connected");
+			// Initiate conversation with client
+			PHPProtocol phpP = new PHPProtocol();
+			boolean error = false;
+			char[] buf = new char[4096];
 
-			    while (!error && (in.read(buf, 0, 4096) > 0)) {
-			    	System.out.println("In");
-			    	error = phpP.channelRead(out, new String(buf));
-			    }
-			    clientSocket.close();
-			    System.out.println("Close");
+			while (!error && (in.read(buf, 0, 4096) > 0)) {
+				System.out.println("New packet received.");
+				error = phpP.channelRead(out, new String(buf));
+			}
+			clientSocket.close();
+			System.out.println("Closed connection with client");
 		}
+		
+		serverSocket.close();
 	}
 
 	public static MySQLConnection getSql() {
