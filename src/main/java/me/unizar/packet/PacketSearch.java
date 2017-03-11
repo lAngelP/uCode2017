@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 public class PacketSearch implements IPacket{
 	
-	public static final int PACKET_ID = 6;
+	public static final int PACKET_ID = 7;
 
 	@Override
 	public void handle(ChannelHandlerContext ctx, JSONObject object) {

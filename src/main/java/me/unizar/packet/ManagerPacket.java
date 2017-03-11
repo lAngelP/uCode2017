@@ -45,19 +45,11 @@ public class ManagerPacket {
 		packet.send(ctx, json);
 		ctx.writeAndFlush(json.toString());
 	}
-
-	static {
-		registerPacket(PacketResponse.PACKET_ID, PacketResponse.class);
-
-		registerPacket(PacketLogin.PACKET_ID, PacketLogin.class);
-		registerPacket(PacketRegister.PACKET_ID, PacketRegister.class);
-
-		registerPacket(PacketAddNetwork.PACKET_ID, PacketAddNetwork.class);
-		registerPacket(PacketRemoveNetwork.PACKET_ID, PacketRemoveNetwork.class);
-		registerPacket(PacketGetNetworks.PACKET_ID, PacketGetNetworks.class);
-
-		registerPacket(PacketSearch.PACKET_ID, PacketSearch.class);
-		registerPacket(PacketSearchRequest.PACKET_ID, PacketSearchRequest.class);
+	
+	public static void sendPacket(ChannelHandlerContext ctx, IPacket packet) {
+		JSONObject json = new JSONObject();
+		packet.send(ctx, json);
+		ctx.writeAndFlush(json.toString());
 	}
 
 	public static String getNetwork(int type) {
@@ -69,5 +61,31 @@ public class ManagerPacket {
 		default:
 			return null;
 		}
+	}
+	
+	public static int getNetwork(String type) {
+		switch (type) {
+		case "TWITTER":
+			return 0;
+		case "FACEBOOK":
+			return 1;
+		default:
+			return -1;
+		}
+	}
+	
+	static {
+		registerPacket(PacketResponse.PACKET_ID, PacketResponse.class);
+
+		registerPacket(PacketLogin.PACKET_ID, PacketLogin.class);
+		registerPacket(PacketRegister.PACKET_ID, PacketRegister.class);
+
+		registerPacket(PacketAddNetwork.PACKET_ID, PacketAddNetwork.class);
+		registerPacket(PacketRemoveNetwork.PACKET_ID, PacketRemoveNetwork.class);
+		registerPacket(PacketGetNetworks.PACKET_ID, PacketGetNetworks.class);
+		registerPacket(PacketGetNetworksResponse.PACKET_ID, PacketGetNetworksResponse.class);
+
+		registerPacket(PacketSearch.PACKET_ID, PacketSearch.class);
+		registerPacket(PacketSearchRequest.PACKET_ID, PacketSearchRequest.class);
 	}
 }
