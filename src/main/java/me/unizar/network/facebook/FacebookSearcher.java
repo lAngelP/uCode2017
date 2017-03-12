@@ -24,7 +24,7 @@ public class FacebookSearcher {
 		confBuilder.setOAuthAppId("686574691515191");
 		confBuilder.setOAuthAppSecret("a4440d5428aeb5ffe53777d90113a98e");
 		confBuilder.setOAuthAccessToken(
-				"EAAJwb6CZAezcBAGJ7HmiXnTZBynwDYOacLUzch4AxZCIc2hBrp91U5y2UuwdAVcZBBEyfweltANuzKtZBZCMwvUlctYCx1l8ehGdYoAjvHkZCedmGvvsH15oDF9AiTyuiGiGoJngDtKedD7TY0atL9sbzzjZBOUTqxc6IQKSG8LZCV56IFhYQ2ZA9CZBYZClKEBG74YZD");
+				"EAAJwb6CZAezcBAEbW3UmExAmxfKYZCxXKt6DWRcAUgTFQ04H1iSSmYIEvdsWZCAkkZC0uxcSZATo3j9JDJQcZCiJ1dVZAJhuXmBzJY28yUCvBUZCrMLTr4aS2ZBkbDT79l4Tiw5fSpZCDbq5n2ytTWHVZB2ufpfMWI2alLVsq0ZC9Vml3wwRhF75RwimgYHxeAooZCPQZD");
 
 		// Set permission
 		confBuilder.setOAuthPermissions("email,publish_stream, id, name, first_name, last_name, generic");
