@@ -29,7 +29,7 @@ public class TwitterSearcher {
 	
 	public void search(PacketSearchRequest req, String search){
 		try {
-            Query query = new Query("from:NASA");
+            Query query = new Query(search);
             query.setResultType(Query.MIXED);
             query.setCount(50);
             QueryResult result;

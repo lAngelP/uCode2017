@@ -22,23 +22,40 @@ function getCookie(cname) {
 
 function generateCarousel(nf, face, nt, tw){
 	// fb
-	resulfb="<div class=\"carousel-inner\" role=\"listbox\"> "
-	for(i=0;i<nf;++1){
+	resultfb="<div class=\"carousel-inner\" role=\"listbox\"> "
+	alert("fb " + nf + " tw " + nt);
+	for(var i=0;i<nf;++i){
+		alert("fb");
 		resultfb= resultfb+"<div class=\"carousel-item \"> <iframe src=\"https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/"
 		+face[i].user+"/posts/"+face[i].post+"/&width=500&show_text=true&height=290&appId\" width=\"500\" height=\"290\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe> </div>"
 	}
 	resultfb= resultfb+ "</div>";
- 	document.getElementsById('carouselfb').innerHTML=resulfb;
+ 	$('#carouselfb').html(resultfb);
 
 	// tw
-	result="<div class=\"carousel-inner\" role=\"listbox\"> "
-	for(i=0;i<nt;++1){
-		result= result+"<div class=\"carousel-item \"> <iframe border=0 frameborder=0 height=250 width=550 src=\"http://twitframe.com/show?url=https://twitter.com/"+tw[i].user+"status/"+tw[i].post+"\"></iframe> " 
+	result="<div class=\"row\">"
+	resIndicators = "";
+	for(var i=0;i<nt;++i){
+		result = result + "<div align=\""+(i%2 == 0 ? "right" : "left")+"\" class=\"col-md-3\">"
+		result= result+"<iframe border=0 frameborder=0 height=500 width=325 src=\"http://twitframe.com/show?url=https://twitter.com/"+tw[i].user+"/status/"+tw[i].post+"\"></iframe>" 
+		result = result + "</div>";
+		
+		resIndicators = resIndicators + "<li data-target=\"#carouseltw\" data-slide-to="+i + " " + (i== 0 ? "class=\"active\"" : "") + "></li>";
 	}
 	result= result+ "</div>";
-	document.getElementsById('carouseltw').innerHTML=resul;
+	$('#twitterInner').html(result);
+	$('#twitterIndic').html(resIndicators);
+
 }
-		
+
+function generateRadioButton(n,atributos){
+	var radiosOpcionales = "";
+	for (var i = n - 1; i >= 0; i--) {
+		radiosOpcionales = radiosOpcionales + "<input type=\"radio\" name=\"gender\" value=\""+atributos[i]+"\">" + atributos[i];  
+	}
+	document.getElementById('carouselfb').innerHTML=radiosOpcionales;
+}
+
 
 $(document).ready(
 	function(){
@@ -46,8 +63,9 @@ $(document).ready(
 			var user = getCookie("user");
 			var search = $("#searchWords").val();
 			if(search == ""){
-				if(pass == ""){
+				if(search == ""){
 					$('div[id="pass_container"]').addClass("has-error");
+					//TODO
 				}
 			}else{
 				$.post("/ucode2017/lib/search.php", {user:user, search:search},
@@ -57,8 +75,7 @@ $(document).ready(
 								var error = json.error;
 								//TODO SENT TO DIV
 							}else{
-								var twCount, tw, fbCount, fb;
-								
+								generateCarousel(json.fbCount, json.fb[0], json.twCount, json.tw[0]);
 							}
 						}
 					);

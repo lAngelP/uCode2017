@@ -50,7 +50,7 @@ public class FacebookSearcher {
 		for (Post post : results) {
 			String postId = post.getId();
 			String[] data = postId.split("_");
-
+			System.out.println("FB " + postId);
 			req.addToNetwork(NetworkType.FACEBOOK, data[0], data[1]);
 			
 			i++;

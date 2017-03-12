@@ -8,11 +8,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.unizar.UCode2017;
+import me.unizar.network.facebook.FacebookSearcher;
+import me.unizar.network.twitter.TwitterSearcher;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
 import me.unizar.sql.parameters.SQLParameterInteger;
 
 public class PacketSearch implements IPacket {
+	
+	private static final FacebookSearcher fbSearcher = new FacebookSearcher();
+	private static final TwitterSearcher twSearcher = new TwitterSearcher();
 
 	public static final int PACKET_ID = 7;
 
@@ -51,7 +56,8 @@ public class PacketSearch implements IPacket {
 
 		PacketSearchRequest packet = new PacketSearchRequest();
 
-		// TODO LAUNCH FB AND TW SEARCH
+		fbSearcher.search(packet, search);
+		twSearcher.search(packet, search);
 
 		ManagerPacket.sendPacket(ctx, packet);
 		return false;
