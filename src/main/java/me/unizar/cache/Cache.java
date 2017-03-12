@@ -3,12 +3,13 @@ package me.unizar.cache;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import me.unizar.packet.PacketSearchRequest;
 
 public class Cache {
 	
-	private Map<Integer, CacheId> reqs;
+	private Map<Integer, CacheId> reqs = new TreeMap<>();
 	
 	private int id = 0;
 	
@@ -26,7 +27,7 @@ public class Cache {
 			}
 		}
 		
-		return reqs.containsKey(reqs);
+		return reqs.containsKey(filterId);
 	}
 	
 	public void addToCache(int id, PacketSearchRequest req){
