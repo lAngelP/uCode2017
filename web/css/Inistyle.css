@@ -154,13 +154,15 @@
 
 html {
   overflow-y: scroll;
-}
-
-body {
   background-image: url('../header.jpg'); 
   background-size: 75%;
   background-repeat: no-repeat;
   background-position: right top;
+  
+}
+
+body {
+  
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -173,15 +175,13 @@ a {
 a:hover {
   color: #179b77;
 }
+ .navbar-default .navbar-brand {
+color: #FFBF00;
+font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive
 
-.form {
-  background: rgba(19, 35, 47, 0.8);
-  padding: 40px;
-  max-width: 600px;
-  margin-left: 20px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+.main{
+   text-align:center;
 }
 .form2{
   text-align:center;
@@ -193,6 +193,16 @@ a:hover {
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
   margin-top: -390px;
 }
+.form {
+  background: rgba(19, 35, 47, 0.8);
+  padding: 40px;
+  max-width: 600px;
+  margin-left: 75px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  margin-top: 75px;
+}
+
 .tab-group {
   list-style: none;
   padding: 0;
@@ -338,4 +348,163 @@ textarea {
 .forgot {
   margin-top: -20px;
   text-align: right;
+}
+@import "compass/css3";
+
+@import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700);
+@import url('http://weloveiconfonts.com/api/?family=entypo');
+@import url('http://weloveiconfonts.com/api/?family=zocial');
+
+$btn: #fff;
+$fb: #47c;
+$tw: #0cf;
+$gp: #d43;
+$am: #fa0;
+$ya: #c4c;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:before, :after {
+  content: '';
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.section {
+  padding: 20px;
+  border-bottom: 1px solid #aaa;
+}
+
+.btn {
+  position: relative;
+  display: block;
+  width: 210px;
+  height: 40px;
+  margin: 10px auto;
+  padding: 0 0 0 55px;
+  font: 700 16px/40px 'Quattrocento Sans', sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #555;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, $btn 0%, darken($btn, 10%) 100%);
+  box-shadow: 0 1px 1px rgba(0,0,0,.5);
+  cursor: pointer;
+}
+
+.btn span {
+  font-size: 14px;
+  text-transform: none;
+  color: #aaa;
+}
+
+.btn:before {
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  font: 20px/40px entypo;
+  text-align: center;
+  color: #fff;
+  border-radius: 2px 0 0 2px;
+}
+
+.btn.fb:before {
+  content: '\f30c';
+  background: linear-gradient(to bottom, $fb 0%, darken($fb, 10%) 100%);
+}
+
+.btn.tw:before {
+  content: '\f309';
+  background: linear-gradient(to bottom, $tw 0%, darken($tw, 10%) 100%);
+}
+
+.btn.gp:before {
+  content: '\f30f';
+  background: linear-gradient(to bottom, $gp 0%, darken($gp, 10%) 100%);
+}
+
+.btn.am:before {
+  content: 'a';
+  font-family: zocial;
+  text-transform: none;
+  background: linear-gradient(to bottom, $am 0%, darken($am, 10%) 100%);
+}
+
+.btn.ya:before {
+  content: 'Y';
+  font-family: zocial;
+  text-transform: none;
+  background: linear-gradient(to bottom, $ya 0%, darken($ya, 10%) 100%);
+}
+
+.btn:hover {
+  text-shadow: 0 0 10px #fff;
+}
+
+/* reverse */
+
+.btn.reverse {
+  color: #fff;
+}
+
+.btn.reverse span {
+  color: #eee;
+}
+
+.btn.fb.reverse {
+  background: linear-gradient(to bottom, $fb 0%, darken($fb, 10%) 100%);
+}
+
+.btn.tw.reverse {
+  background: linear-gradient(to bottom, $tw 0%, darken($tw, 10%) 100%);
+}
+
+.btn.gp.reverse {
+  background: linear-gradient(to bottom, $gp 0%, darken($gp, 10%) 100%);
+}
+
+.btn.am.reverse {
+  background: linear-gradient(to bottom, $am 0%, darken($am, 10%) 100%);
+}
+
+.btn.ya.reverse {
+  background: linear-gradient(to bottom, $ya 0%, darken($ya, 10%) 100%);
+}
+
+.btn.reverse:before {
+  color: #555;
+  background: linear-gradient(to bottom, $btn 0%, darken($btn, 10%) 100%);
+}
+
+/* naked */
+
+.btn.naked:before {
+  border-right: 1px solid #aaa;
+  background: none;
+}
+
+.btn.fb.naked:before {
+  color: darken($fb, 5%);
+}
+
+.btn.tw.naked:before {
+  color: darken($tw, 5%);
+}
+
+.btn.gp.naked:before {
+  color: darken($gp, 5%);
+}
+
+.btn.am.naked:before {
+  color: darken($am, 5%);
+}
+
+.btn.ya.naked:before {
+  color: darken($ya, 5%);
 }
