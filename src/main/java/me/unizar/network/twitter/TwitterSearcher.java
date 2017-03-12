@@ -27,10 +27,16 @@ public class TwitterSearcher {
         twitter = tf.getInstance();
 	}
 	
-	public void search(PacketSearchRequest req, String search){
+	public void search(PacketSearchRequest req, String search, int mode){
 		try {
             Query query = new Query(search);
-            query.setResultType(Query.MIXED);
+            if(mode == 0){
+            	query.setResultType(Query.MIXED);
+            }else if(mode == 1){
+            	query.setResultType(Query.RECENT);
+            }else if(mode == 2){
+            	query.setResultType(Query.POPULAR);
+            }
             query.setCount(50);
             QueryResult result;
             result = twitter.search(query);

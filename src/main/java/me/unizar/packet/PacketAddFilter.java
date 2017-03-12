@@ -17,10 +17,15 @@ public class PacketAddFilter implements IPacket {
 	@Override
 	public boolean handle(PrintWriter ctx, JSONObject object) {
 		String user, filter;
+		int mode = 0;
 
 		try {
 			user = object.getString("user");
 			filter = object.getString("filter");
+			
+			if(object.has("mode")){
+				mode = object.getInt("mode");
+			}
 		} catch (JSONException e) {
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
 			return true;
@@ -42,7 +47,7 @@ public class PacketAddFilter implements IPacket {
 		}
 
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.ADD_FILTER, new SQLParameterString(user),
-				new SQLParameterString(filter));
+				new SQLParameterString(filter), new SQLParameterString(ManagerPacket.getTwitterMode(mode)));
 		ManagerPacket.sendSuccessMessage(ctx, "Filter has been added!");
 		return false;
 	}

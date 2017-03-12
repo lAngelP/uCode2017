@@ -5,43 +5,44 @@
   <title>Sign-Up/Login Form</title>
   <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">  
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   
 </head>
 <body>
   <div class="form">
       <ul class="tab-group">
-        <li class="tab active"><a data-toggle="tab" href="#signup">Registrate</a></li>
-        <li class="tab"><a data-toggle="tab" href="#login">Inicia sesión</a></li>
+        <li class="tab active"><a data-toggle="tab" href="#signup">Sign up</a></li>
+        <li class="tab"><a data-toggle="tab" href="#login">Log in</a></li>
       </ul>
       
       <div class="tab-content">
         <div id="signup">   
-          <h1>Registrate gratis</h1>
+          <h1>Sign up for free</h1>
           
           <form>
-          
-          <div class="top-row">
-				<div id="message"></div>
-         </div>
+			<div class="row">
+				<div id="message" class="col-md-offset-2 col-md-8">
+				</div>
+			</div>
 
           <div class="field-wrap user_container">
             <label>
-              Usuario<span class="req">*</span>
+              Username<span class="req">*</span>
             </label>
             <input id="user" type="text"required autocomplete="off"/>
           </div>
           
           <div class="field-wrap pass0_container">
             <label>
-              Constraseña<span class="req">*</span>
+              Password<span class="req">*</span>
             </label>
             <input id="pass0" type="password"required autocomplete="off"/>
           </div>
 		  
 		  <div class="field-wrap pass1_container">
             <label>
-              Constraseña (de nuevo)<span class="req">*</span>
+              Repeat password<span class="req">*</span>
             </label>
             <input id="pass1" type="password"required autocomplete="off"/>
           </div>
@@ -60,31 +61,33 @@
         </div>
         
         <div id="login">   
-          <h1>Bienvenido!</h1>
+          <h1>Welcome back!</h1>
           
           <form>
 		  
-		  <div class="top-row">
-				<div id="messageLogin"></div>
-         </div>
+		  
+				<div class="row">
+					<div id="messageLogin" class="col-md-offset-2 col-md-8">
+					</div>
+				</div>
           
             <div class="field-wrap user_container">
             <label>
-              Usuario<span class="req">*</span>
+              Username<span class="req">*</span>
             </label>
             <input id="userLogin" type="text" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap pass_container">
             <label>
-              Contraseña<span class="req">*</span>
+              Password<span class="req">*</span>
             </label>
             <input id="passLogin" type="password" required autocomplete="off"/>
           </div>
           
-          <p class="forgot"><a href="#">Olvidaste tu contraseña?</a></p>
+          <p class="forgot"><a href="#">Forgot password?</a></p>
           
-          <button id="loginBtn" type="button" class="button button-block"/>Iniciar sesión</button>
+          <button id="loginBtn" type="button" class="button button-block"/>Log in!</button>
           
           </form>
 

@@ -25,11 +25,14 @@ public class PacketSearch implements IPacket {
 	@Override
 	public boolean handle(PrintWriter ctx, JSONObject object) {
 		String user, search = null;
-		int fId = -1;
+		int fId = -1, mode = 0;
 		try {
 			user = object.getString("user");
 			if (!object.has("filterId")) {
 				search = object.getString("search");
+				if(object.has("mode")){
+					mode = object.getInt("mode");
+				}
 			} else {
 				fId = object.getInt("filterId");
 			}
@@ -49,6 +52,7 @@ public class PacketSearch implements IPacket {
 			try {
 				set.first();
 				search = set.getString("filter");
+				mode = set.getInt("mode");
 			} catch (SQLException e) {
 				ManagerPacket.sendErrorMessage(ctx, "Unknown error.");
 				MySQLConnection.closeStatement(set);
@@ -61,7 +65,7 @@ public class PacketSearch implements IPacket {
 		PacketSearchRequest packet = new PacketSearchRequest();
 
 		fbSearcher.search(packet, search);
-		twSearcher.search(packet, search);
+		twSearcher.search(packet, search, mode);
 
 		ManagerPacket.sendPacket(ctx, packet);
 		return false;

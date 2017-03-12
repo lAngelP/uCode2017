@@ -38,11 +38,12 @@ function getJSONLogin($user, $pass){
 	return json_encode($arr);
 }
 
-function getJSONAddFilter($user, $filter){
+function getJSONAddFilter($user, $filter, $mode){
 	$arr = array();
 	$arr["pId"] = ADD_FILTER_ID;
 	$arr["user"] = $user;
 	$arr["filter"] = $filter;
+	$arr["mode"] = $mode;
 	return json_encode($arr);
 }
 

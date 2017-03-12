@@ -53,24 +53,46 @@ function generateRadioButton(n,atributos){
 	for (var i = n - 1; i >= 0; i--) {
 		radiosOpcionales = radiosOpcionales + "<div class=\"col-md-offset-3 col-md-6\">";
 		radiosOpcionales = radiosOpcionales + "<div class=\"well well-lg valign\">";
-		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilter\" style=\"width:50%;\" value=\""+atributos[i].value+"\">";
-		radiosOpcionales = radiosOpcionales + "<span>";
+		radiosOpcionales = radiosOpcionales + "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-md-6\">";
+		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilter\" value=\""+atributos[i].value+"\">";
+		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilterMode\" value=\""+getModeStr(atributos[i].mode)+"\">";
+		radiosOpcionales = radiosOpcionales + "</div><div class=\"col-md-6\">";
 		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-info\" style=\"width:100px;\" onclick=\"executeFilter("+atributos[i].id+",'"+atributos[i].value+"')\"><i class=\"fa fa-info\" aria-hidden=\"true\"></i>&nbsp;&nbsp;Load</button>";
 		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-danger\" style=\"width:100px;\" onclick=\"removeFilter("+atributos[i].id+")\"><i class=\"fa fa-eraser\" aria-hidden=\"true\"></i>&nbsp;Delete</button>";
-		radiosOpcionales = radiosOpcionales + "</span></div></div>";
+		radiosOpcionales = radiosOpcionales + "</div></div></div></div></div>";
 	}
 	$('#filtersRadio').html(radiosOpcionales);
+}
+
+function setMessage(el, type, message){
+	if(type == 0){
+		$("#" + el).html("<div class=\"alert alert-success\"><strong>Success!</strong> "+message+"</div>");
+	}else{
+		$("#" + el).html("<div class=\"alert alert-danger\"><strong>Error!</strong> "+message+"</div>");
+	}
+}
+
+function getModeStr(i){
+	if(i == 0){
+		return "Mixed";
+	}else if(i == 1){
+		return "Recent";
+	}else if(i == 2){
+		return "Popular";
+	}
+	
+	return "";
 }
 
 function addFilter(){
 	var name = getCookie("user");
 	var filter = $("#newFilter").val();
-	$.post("/ucode2017/lib/addFilter.php", {user:name, filter:filter},
+	var mode = $("#newFilterMode").val();
+	$.post("/ucode2017/lib/addFilter.php", {user:name, filter:filter, mode:mode},
 		function(data){
 			var json = $.parseJSON(data);
 			var error = json.error[0];
-			//TODO SENT TO DIV
-			
+			setMessage("filterHeader", error, json.message[0]);
 			if(error == 0){
 				loadFilters();
 			}
@@ -85,14 +107,17 @@ function discardFilter(){
 function executeFilter(i, filterName){
 	var name = getCookie("user");
 	$("#searchWords").val(filterName);
+	setMessage("filterHeader", 0, "Loading posts... Please wait.");
 	$.post("/ucode2017/lib/searchFilter.php", {user:name, filter:i},
 		function(data){
 			var json = $.parseJSON(data);
 			if(json.pId[0] == 0){
 				var error = json.error[0];
-				//TODO SENT TO DIV
+				setMessage("filterHeader", error, json.message[0]);
 			}else{
 				generateCarousel(json.fbCount, json.fb[0], json.twCount, json.tw[0]);
+				setMessage("filterHeader", 0, "Posts have been loaded.");
+				window.location.hash = '#searchWords';
 			}
 		}
 	);
@@ -104,8 +129,7 @@ function removeFilter(i){
 		function(data){
 			var json = $.parseJSON(data);
 			var error = json.error[0];
-			//TODO SENT TO DIV
-			
+			setMessage("filterHeader", error, json.message[0]);
 			if(error == 0){
 				loadFilters();
 			}
@@ -120,7 +144,7 @@ function loadFilters(){
 			var json = $.parseJSON(data);
 			if(json.pId == 0){
 				var error = json.error;
-				//TODO SENT TO DIV
+				setMessage("filterHeader", error, json.message[0]);
 			}else{
 				generateRadioButton(json.filterCount, json.filters[0]);
 			}
@@ -146,55 +170,22 @@ $(document).ready(
 			var search = $("#searchWords").val();
 			if(search == ""){
 				if(search == ""){
-					$('div[id="pass_container"]').addClass("has-error");
-					//TODO
+					setMessage("searchHeader", 1, "No keyword given.");
 				}
 			}else{
+				setMessage("searchHeader", 0, "Loading posts... Please wait.");
 				$.post("/ucode2017/lib/search.php", {user:user, search:search},
-						function(data){
-							var json = $.parseJSON(data);
-							if(json.pId == 0){
-								var error = json.error;
-								//TODO SENT TO DIV
-							}else{
-								generateCarousel(json.fbCount, json.fb[0], json.twCount, json.tw[0]);
-							}
-						}
-					);
-			}
-		});
-		
-		$('#register').click(function(){
-			var user = $("#user").val();
-			var pass0 = $("#pass0").val();
-			var pass1 = $("#pass1").val();
-			var mail = $("#mail").val();
-			if(user == "" || pass0 == "" || pass1 == "" || mail == ""){
-				if(user == ""){
-					$('div[id="user_container"]').addClass("has-error");
-				}
-				
-				if(pass0 == ""){
-					$('div[id="pass0_container"]').addClass("has-error");
-				}
-				
-				if(pass1 == ""){
-					$('div[id="pass1_container"]').addClass("has-error");
-				}
-				
-				if(mail == ""){
-					$('div[id="mail_container"]').addClass("has-error");
-				}
-			}else{
-				$.post("/ucode2017/lib/register.php", {user:user, pass0:pass0, pass1:pass1, mail:mail},
-						function(data){
-							var json = $.parseJSON(data);
-							$('#message').html(json.message);
+					function(data){
+						var json = $.parseJSON(data);
+						if(json.pId == 0){
 							var error = json.error;
-							
-							//TODO SEND TO DIV
+							setMessage("searchHeader", error, json.message[0]);
+						}else{
+							generateCarousel(json.fbCount, json.fb[0], json.twCount, json.tw[0]);
+							setMessage("searchHeader", 0, "Posts have been loaded.");
 						}
-					);
+					}
+				);
 			}
 		});
 	}

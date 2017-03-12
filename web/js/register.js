@@ -19,7 +19,14 @@ function getCookie(cname) {
 	}
 	return "";
 }
-		
+
+function setMessage(el, type, message){
+	if(type == 0){
+		$("#" + el).html("<div class=\"alert alert-success\"><strong>Success!</strong> "+message+"</div>");
+	}else{
+		$("#" + el).html("<div class=\"alert alert-danger\"><strong>Error!</strong> "+message+"</div>");
+	}
+}	
 
 $(document).ready(
 	function(){
@@ -38,8 +45,9 @@ $(document).ready(
 				$.post("/ucode2017/lib/login.php", {user:user, pass:pass},
 						function(data){
 							var json = $.parseJSON(data);
-							$('#messageLogin').html(json.message);
 							var error = json.error;
+							
+							setMessage("messageLogin", error, json.message);
 							
 							if(error == 0){
 								setCookie("user", user, 30);
@@ -72,12 +80,16 @@ $(document).ready(
 					$('div[id="mail_container"]').addClass("has-error");
 				}
 			}else{
+				if(pass0 != pass1){
+					setMessage("message", 1, "Passwords don't match!");
+					return;
+				}
+				setMessage("message", 0, "Registering account!");
 				$.post("/ucode2017/lib/register.php", {user:user, pass0:pass0, pass1:pass1, mail:mail},
 						function(data){
 							var json = $.parseJSON(data);
-							$('#message').html(json.message);
 							var error = json.error;
-							
+							setMessage("message", error, json.message);
 							if(error == 0){
 								setCookie("user", user, 30);
 								window.location.replace("/ucode2017/busqueda.html");

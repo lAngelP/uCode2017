@@ -69,6 +69,32 @@ public class ManagerPacket {
 			return -1;
 		}
 	}
+	
+	public static String getTwitterMode(int type) {
+		switch (type) {
+		case 0:
+			return "MIXED";
+		case 1:
+			return "RECENT";
+		case 2:
+			return "POPULAR";
+		default:
+			return null;
+		}
+	}
+
+	public static int getTwitterMode(String type) {
+		switch (type) {
+		case "MIXED":
+			return 0;
+		case "RECENT":
+			return 1;
+		case "POPULAR":
+			return 2;
+		default:
+			return -1;
+		}
+	}
 
 	public static void register(){
 		registerPacket(PacketResponse.PACKET_ID, PacketResponse.class);

@@ -12,10 +12,11 @@ public class PacketGetFiltersResponse implements IPacket{
 	private JSONArray obj = new JSONArray();
 	private int filters = 0;
 	
-	public void addFilter(int id, String value){
+	public void addFilter(int id, String value, int mode){
 		JSONObject base = new JSONObject();
 		base.append("id", id);
 		base.append("value", value);
+		base.append("mode", mode);
 		
 		obj.put(base);
 		filters++;

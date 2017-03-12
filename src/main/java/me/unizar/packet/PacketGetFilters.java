@@ -37,7 +37,7 @@ public class PacketGetFilters implements IPacket {
 		PacketGetFiltersResponse response = new PacketGetFiltersResponse();
 		try {
 			while(set.next()){
-				response.addFilter(set.getInt("filterId"), set.getString("filter"));
+				response.addFilter(set.getInt("filterId"), set.getString("filter"), set.getInt("mode"));
 			}
 		} catch (SQLException e) {
 			ManagerPacket.sendErrorMessage(ctx, "Unknown error.");

@@ -22,10 +22,10 @@ public class SQLRegisterBase {
 		REMOVE_NETWORK = SQLQueries.registerQuery(new SQLQueryData("DELETE FROM `social_networks` WHERE `id` = ?;", 1));
 		GET_NETWORKS = SQLQueries.registerQuery(new SQLQueryData("SELECT `id`, `network`, `value` FROM `social_networks` WHERE `user` = ?;", 1));
 		
-		ADD_FILTER = SQLQueries.registerQuery(new SQLQueryData("INSERT INTO `filters`(`user`, `filter`) VALUES (?, ?);", 2));
+		ADD_FILTER = SQLQueries.registerQuery(new SQLQueryData("INSERT INTO `filters`(`user`, `filter`, `mode`) VALUES (?, ?, ?);", 3));
 		REMOVE_FILTER = SQLQueries.registerQuery(new SQLQueryData("DELETE FROM `filters` WHERE `filterId` = ?;", 1));
-		GET_FILTERS = SQLQueries.registerQuery(new SQLQueryData("SELECT `filterId`, `filter` FROM `filters` WHERE `user` = ?;", 1));
-		GET_FILTER = SQLQueries.registerQuery(new SQLQueryData("SELECT `filter` FROM `filters` WHERE `filterId` = ?;", 1));
+		GET_FILTERS = SQLQueries.registerQuery(new SQLQueryData("SELECT `filterId`, `filter`, `mode` FROM `filters` WHERE `user` = ?;", 1));
+		GET_FILTER = SQLQueries.registerQuery(new SQLQueryData("SELECT `filter`, `mode` FROM `filters` WHERE `filterId` = ?;", 1));
 	}
 
 }
