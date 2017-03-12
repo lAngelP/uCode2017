@@ -8,8 +8,8 @@ import java.net.Socket;
 import java.util.logging.Logger;
 
 import me.unizar.packet.ManagerPacket;
+import me.unizar.protocol.PHPProtocol;
 import me.unizar.sql.MySQLConnection;
-import me.unizar.test.PHPProtocol;
 
 public class UCode2017 {
 

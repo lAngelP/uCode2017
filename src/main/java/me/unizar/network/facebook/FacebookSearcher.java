@@ -44,7 +44,6 @@ public class FacebookSearcher {
 		try {
 			results = facebook.getPosts(search);
 		} catch (FacebookException e) {
-			e.printStackTrace();
 			return;
 		}
 		int i = 0;

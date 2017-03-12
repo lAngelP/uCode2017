@@ -41,7 +41,7 @@ public class PacketAddFilter implements IPacket {
 			return true;
 		}
 		
-		if(SQLHelper.getFilterCount(filter, user) > 0){
+		if(SQLHelper.getFilterCount(filter, user, mode) > 0){
 			ManagerPacket.sendErrorMessage(ctx, "Filter already exists.");
 			return true;
 		}

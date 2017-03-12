@@ -53,9 +53,10 @@ function generateRadioButton(n,atributos){
 	for (var i = n - 1; i >= 0; i--) {
 		radiosOpcionales = radiosOpcionales + "<div class=\"col-md-offset-3 col-md-6\">";
 		radiosOpcionales = radiosOpcionales + "<div class=\"well well-lg valign\">";
-		radiosOpcionales = radiosOpcionales + "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-md-6\">";
-		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilter\" value=\""+atributos[i].value+"\">";
-		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilterMode\" value=\""+getModeStr(atributos[i].mode)+"\">";
+		radiosOpcionales = radiosOpcionales + "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-md-3\">";
+		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled value=\""+atributos[i].value+"\">";
+		radiosOpcionales = radiosOpcionales + "</div><div class=\"col-md-3\">";
+		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled value=\""+getModeStr(atributos[i].mode)+"\">";
 		radiosOpcionales = radiosOpcionales + "</div><div class=\"col-md-6\">";
 		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-info\" style=\"width:100px;\" onclick=\"executeFilter("+atributos[i].id+",'"+atributos[i].value+"')\"><i class=\"fa fa-info\" aria-hidden=\"true\"></i>&nbsp;&nbsp;Load</button>";
 		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-danger\" style=\"width:100px;\" onclick=\"removeFilter("+atributos[i].id+")\"><i class=\"fa fa-eraser\" aria-hidden=\"true\"></i>&nbsp;Delete</button>";

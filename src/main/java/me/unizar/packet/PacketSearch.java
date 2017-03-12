@@ -52,7 +52,7 @@ public class PacketSearch implements IPacket {
 			try {
 				set.first();
 				search = set.getString("filter");
-				mode = set.getInt("mode");
+				mode = ManagerPacket.getTwitterMode(set.getString("mode"));
 			} catch (SQLException e) {
 				ManagerPacket.sendErrorMessage(ctx, "Unknown error.");
 				MySQLConnection.closeStatement(set);
