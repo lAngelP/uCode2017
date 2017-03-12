@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import me.unizar.UCode2017;
 import me.unizar.network.facebook.FacebookSearcher;
 import me.unizar.network.twitter.TwitterSearcher;
+import me.unizar.sql.MySQLConnection;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
 import me.unizar.sql.parameters.SQLParameterInteger;
@@ -50,7 +51,10 @@ public class PacketSearch implements IPacket {
 				search = set.getString("filter");
 			} catch (SQLException e) {
 				ManagerPacket.sendErrorMessage(ctx, "Unknown error.");
+				MySQLConnection.closeStatement(set);
 				return true;
+			}finally {
+				MySQLConnection.closeStatement(set);
 			}
 		}
 

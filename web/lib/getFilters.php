@@ -1,17 +1,18 @@
 <?php
+include "client.php";
 
-if(!isset($_POST["user"]))){
+if(!isset($_POST["user"])){
 	echo getJSONMessage(true, "Invalid parameters.");
 	exit(1);
 }
-
-include "client.php";
-
-if(!fwrite($fp, getJSONGetFilters($_POST['user']))){
+$str = getJSONGetFilters($_POST['user']);
+if(!socket_write($sock, $str)){
 	echo getJSONMessage(true, "Cannot write to socket.");
+	socket_close($sock);
 	exit(1);
 }
 
-echo fgets($fp, 4096);
-
+$str = socket_read($sock, 4096, PHP_NORMAL_READ);
+echo $str;
+socket_close($sock);
 ?>

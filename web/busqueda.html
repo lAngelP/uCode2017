@@ -75,6 +75,33 @@
             </div>
         </div>
     </header>
+	
+	<section id="filter">
+		<div class="container" align="center" >
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+					<h2 class="section-heading">Filtros</h2>
+                    <h3 class="section-subheading text-muted">Busca por palabras clave que ya has guardado previamente!!!!</h3>
+				</div>
+			</div>
+			<div class="container">
+                <div class="row">
+					<div id="filtersNew" class="col-lg-offset-3 col-lg-6">
+						<div class="well well-lg valign">
+						<input type="text" class="form-control pull-left" id="newFilter" style="width:50%;">
+						<span class="">
+						 <button type="button" class="btn btn-success" style="width:100px;" onclick="addFilter()"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Save</button>
+						 <button type="button" class="btn btn-warning" style="width:100px;" onclick="discardFilter()"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Discard</button>
+						</span>
+						</div>
+					</div>
+				</div>
+				<div id="filtersRadio" class="row">
+					
+				</div>
+			</div>
+		</div>
+	</section>
 
    <!-- buscador Section -->
     <section id="buscador">
@@ -103,7 +130,7 @@
     </section>
     <!--  facebook -->
     <div id="carouselfb" class="carousel slide" data-ride="carousel">
-        
+		<div id = "facebookInner" class="container-fluid"></div>
     </div>
     <!--  twitter -->
     <div id="carouseltw" class="carousel slide" data-ride="carousel">
@@ -188,37 +215,6 @@
     <!-- Theme JavaScript -->
     <script src="js/agency.min.js"></script>
 	<script src="js/search.js"></script>
-	<script>
-		function setCookie(cname, cvalue, exdays) {
-			var d = new Date();
-			d.setTime(d.getTime() + (exdays*24*60*60*1000));
-			var expires = "expires="+ d.toUTCString();
-			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-		}
-		function getCookie(cname) {
-			var name = cname + "=";
-			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
-			for(var i = 0; i <ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') {
-					c = c.substring(1);
-				}
-				if (c.indexOf(name) == 0) {
-					return c.substring(name.length, c.length);
-				}
-			}
-			return "";
-		}
-		$(document).ready(function() {
-			var user = getCookie("user");
-			if(user == ""){
-				window.location.replace("/ucode2017/index.html");
-			}else{
-				$('#nameUser').html(user);
-			}
-		});
-	</script>
 
 </body>
 

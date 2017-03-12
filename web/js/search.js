@@ -23,14 +23,14 @@ function getCookie(cname) {
 function generateCarousel(nf, face, nt, tw){
 	// fb
 	resultfb="<div class=\"carousel-inner\" role=\"listbox\"> "
-	alert("fb " + nf + " tw " + nt);
 	for(var i=0;i<nf;++i){
-		alert("fb");
+		resultfb = resultfb + "<div align=\""+(i%2 == 0 ? "right" : "left")+"\" class=\"col-md-3\">"
 		resultfb= resultfb+"<div class=\"carousel-item \"> <iframe src=\"https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/"
-		+face[i].user+"/posts/"+face[i].post+"/&width=500&show_text=true&height=290&appId\" width=\"500\" height=\"290\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe> </div>"
+		+face[i].user+"/posts/"+face[i].post+"/&width=325&show_text=true&height=500&appId\" width=\"325\" height=\"500\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe> </div>"
+		resultfb= resultfb+ "</div>";
 	}
 	resultfb= resultfb+ "</div>";
- 	$('#carouselfb').html(resultfb);
+ 	$('#facebookInner').html(resultfb);
 
 	// tw
 	result="<div class=\"row\">"
@@ -51,11 +51,93 @@ function generateCarousel(nf, face, nt, tw){
 function generateRadioButton(n,atributos){
 	var radiosOpcionales = "";
 	for (var i = n - 1; i >= 0; i--) {
-		radiosOpcionales = radiosOpcionales + "<input type=\"radio\" name=\"gender\" value=\""+atributos[i]+"\">" + atributos[i];  
+		radiosOpcionales = radiosOpcionales + "<div class=\"col-md-offset-3 col-md-6\">";
+		radiosOpcionales = radiosOpcionales + "<div class=\"well well-lg valign\">";
+		radiosOpcionales = radiosOpcionales + "<input type=\"text\" class=\"form-control pull-left\" disabled id=\"newFilter\" style=\"width:50%;\" value=\""+atributos[i].value+"\">";
+		radiosOpcionales = radiosOpcionales + "<span>";
+		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-info\" style=\"width:100px;\" onclick=\"executeFilter("+atributos[i].id+",'"+atributos[i].value+"')\"><i class=\"fa fa-info\" aria-hidden=\"true\"></i>&nbsp;&nbsp;Load</button>";
+		radiosOpcionales = radiosOpcionales + "<button type=\"button\" class=\"btn btn-danger\" style=\"width:100px;\" onclick=\"removeFilter("+atributos[i].id+")\"><i class=\"fa fa-eraser\" aria-hidden=\"true\"></i>&nbsp;Delete</button>";
+		radiosOpcionales = radiosOpcionales + "</span></div></div>";
 	}
-	document.getElementById('carouselfb').innerHTML=radiosOpcionales;
+	$('#filtersRadio').html(radiosOpcionales);
 }
 
+function addFilter(){
+	var name = getCookie("user");
+	var filter = $("#newFilter").val();
+	$.post("/ucode2017/lib/addFilter.php", {user:name, filter:filter},
+		function(data){
+			var json = $.parseJSON(data);
+			var error = json.error[0];
+			//TODO SENT TO DIV
+			
+			if(error == 0){
+				loadFilters();
+			}
+		}
+	);
+}
+
+function discardFilter(){
+	$("#newFilter").val("");
+}
+
+function executeFilter(i, filterName){
+	var name = getCookie("user");
+	$("#searchWords").val(filterName);
+	$.post("/ucode2017/lib/searchFilter.php", {user:name, filter:i},
+		function(data){
+			var json = $.parseJSON(data);
+			if(json.pId[0] == 0){
+				var error = json.error[0];
+				//TODO SENT TO DIV
+			}else{
+				generateCarousel(json.fbCount, json.fb[0], json.twCount, json.tw[0]);
+			}
+		}
+	);
+}
+
+function removeFilter(i){
+	var name = getCookie("user");
+	$.post("/ucode2017/lib/removeFilter.php", {user:name, filter:i},
+		function(data){
+			var json = $.parseJSON(data);
+			var error = json.error[0];
+			//TODO SENT TO DIV
+			
+			if(error == 0){
+				loadFilters();
+			}
+		}
+	);
+}
+
+function loadFilters(){
+	var user = getCookie("user");
+	$.post("/ucode2017/lib/getFilters.php", {user:user},
+		function(data){
+			var json = $.parseJSON(data);
+			if(json.pId == 0){
+				var error = json.error;
+				//TODO SENT TO DIV
+			}else{
+				generateRadioButton(json.filterCount, json.filters[0]);
+			}
+		}
+	);
+}
+
+$(document).ready(function() {
+	var user = getCookie("user");
+	if(user == ""){
+		window.location.replace("/ucode2017/index.html");
+	}else{
+		$('#nameUser').html(user);
+		loadFilters();
+		
+	}
+});
 
 $(document).ready(
 	function(){

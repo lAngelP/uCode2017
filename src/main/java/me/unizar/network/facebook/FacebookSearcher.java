@@ -24,7 +24,7 @@ public class FacebookSearcher {
 		confBuilder.setOAuthAppId("686574691515191");
 		confBuilder.setOAuthAppSecret("a4440d5428aeb5ffe53777d90113a98e");
 		confBuilder.setOAuthAccessToken(
-				"EAAJwb6CZAezcBABGMGiIthKXq4kE94uzuMFSfKyGbI3ExHvZBcHseszlTUf2Q4ETZApME5lpi1GQdZCamKdl9rLVKnfBATjx2kgBYchXvUZCk2UBzKx1uRqDkJCWtS59DLm0hWdT2rFTdwAelQZCAGYWVIhkYjotZCQZAQsqfc6rjhkHi0j2ILHdLwfm1c26Y6cZD");
+				"EAAJwb6CZAezcBAOUc5vQdkypy3O264OQLCmkZAKlwVz0CyiTUaWtfYXOfLLwRGpfrUJZAGX7c3Q9prE8hbuv1m4PuTPIDmMAi2F5Wc4XC4rflK1DIkn4rQB82jFaM8eQxoNElHAFgulzXYdcI8vCd0gUI5WTh1mj2pCm2jC9jzdJD7xLfCTHPrWHakCxxMZD");
 
 		// Set permission
 		confBuilder.setOAuthPermissions("email,publish_stream, id, name, first_name, last_name, generic");
@@ -44,6 +44,7 @@ public class FacebookSearcher {
 		try {
 			results = facebook.getPosts(search);
 		} catch (FacebookException e) {
+			e.printStackTrace();
 			return;
 		}
 		int i = 0;

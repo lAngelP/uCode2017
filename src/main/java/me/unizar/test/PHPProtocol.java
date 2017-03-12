@@ -29,26 +29,21 @@ import me.unizar.packet.ManagerPacket;
 public class PHPProtocol {
 
 	public boolean channelRead(PrintWriter ctx, String msg) throws Exception {
-		System.err.println("Packet -1 " + msg);
+		System.err.println("New packet received " + msg);
 		JSONObject obj = new JSONObject(msg);
-		System.err.println("Packet 0");
 		if (obj.has("pId")) {
 			try {
 				IPacket packet = ManagerPacket.getPacket(obj.getInt("pId"));
 				if (packet != null) {
-					System.err.println("Packet 1");
 					packet.handle(ctx, obj);
 				} else {
 					ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-					System.err.println("Packet 2");
 				}
 			} catch (JSONException ex) {
 				ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-				System.err.println("Packet 3");
 			}
 		} else {
 			ManagerPacket.sendErrorMessage(ctx, "Malformed packet!");
-			System.err.println("Packet 4");
 		}
 
 		return true;

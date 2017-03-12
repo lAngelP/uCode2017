@@ -9,19 +9,15 @@ public class PacketGetFiltersResponse implements IPacket{
 	
 	public static final int PACKET_ID = 12;
 	
-	private JSONObject obj = new JSONObject();
+	private JSONArray obj = new JSONArray();
 	private int filters = 0;
 	
 	public void addFilter(int id, String value){
-		if(!obj.has("filters")){
-			obj.append("filters", new JSONArray());
-		}
-		
 		JSONObject base = new JSONObject();
 		base.append("id", id);
 		base.append("value", value);
 		
-		obj.getJSONArray("filters").put(base);
+		obj.put(base);
 		filters++;
 	}
 
@@ -30,9 +26,9 @@ public class PacketGetFiltersResponse implements IPacket{
 
 	@Override
 	public void send(PrintWriter ctx, JSONObject object) {
-		obj.append("pId", PACKET_ID);
-		obj.append("filterCount", filters);
-		object = obj;
+		object.append("pId", PACKET_ID);
+		object.append("filterCount", filters);
+		object.append("filters", obj);
 	}
 	
 

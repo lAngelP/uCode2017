@@ -38,6 +38,7 @@ public class PacketRemoveFilter implements IPacket{
 		}
 		
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.REMOVE_FILTER, new SQLParameterInteger(id));
+		ManagerPacket.sendSuccessMessage(ctx, "Filter has been removed!");
 		return false;
 	}
 

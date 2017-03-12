@@ -12,7 +12,7 @@ if(!socket_write($sock, $str)){
 	socket_close($sock);
 	exit(1);
 }
-$str = socket_read($sock, 4096, PHP_NORMAL_READ); 
+$str = socket_read($sock, 4096, PHP_NORMAL_READ);
 /*
 while($line != ""){
 	$str .= $line;

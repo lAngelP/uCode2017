@@ -44,7 +44,7 @@ public class ManagerPacket {
 	public static void sendPacket(PrintWriter ctx, IPacket packet) {
 		JSONObject json = new JSONObject();
 		packet.send(ctx, json);
-
+		System.err.println("Sending packet: " + json.toString());
 		ctx.println(json.toString());
 	}
 

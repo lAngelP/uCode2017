@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.unizar.UCode2017;
+import me.unizar.sql.MySQLConnection;
 import me.unizar.sql.SQLHelper;
 import me.unizar.sql.SQLRegisterBase;
 import me.unizar.sql.parameters.SQLParameterString;
@@ -40,7 +41,10 @@ public class PacketGetNetworks implements IPacket {
 			}
 		} catch (SQLException e) {
 			ManagerPacket.sendErrorMessage(ctx, "Unknown error.");
+			MySQLConnection.closeStatement(set);
 			return true;
+		}finally {
+			MySQLConnection.closeStatement(set);
 		}
 		
 		ManagerPacket.sendPacket(ctx, response);

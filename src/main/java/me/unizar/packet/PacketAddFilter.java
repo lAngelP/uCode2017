@@ -35,6 +35,11 @@ public class PacketAddFilter implements IPacket {
 			ManagerPacket.sendErrorMessage(ctx, "Invalid username");
 			return true;
 		}
+		
+		if(SQLHelper.getFilterCount(filter, user) > 0){
+			ManagerPacket.sendErrorMessage(ctx, "Filter already exists.");
+			return true;
+		}
 
 		UCode2017.getSql().runAsyncUpdate(SQLRegisterBase.ADD_FILTER, new SQLParameterString(user),
 				new SQLParameterString(filter));
