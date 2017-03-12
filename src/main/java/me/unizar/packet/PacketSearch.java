@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.unizar.UCode2017;
+import me.unizar.cache.Cache;
 import me.unizar.network.facebook.FacebookSearcher;
 import me.unizar.network.twitter.TwitterSearcher;
 import me.unizar.sql.MySQLConnection;
@@ -19,6 +20,7 @@ public class PacketSearch implements IPacket {
 	
 	private static final FacebookSearcher fbSearcher = new FacebookSearcher();
 	private static final TwitterSearcher twSearcher = new TwitterSearcher();
+	private static final Cache cache = new Cache();
 
 	public static final int PACKET_ID = 7;
 
@@ -41,6 +43,11 @@ public class PacketSearch implements IPacket {
 			return true;
 		}
 
+		if(cache.isInCache(fId)){
+			ManagerPacket.sendPacket(ctx, cache.getRequest(fId));
+			return false;
+		}
+		
 		if (search == null) {
 			if (fId < 0 || SQLHelper.getFilterCount(fId, user) <= 0) {
 				ManagerPacket.sendErrorMessage(ctx, "Unknown filter.");
@@ -68,6 +75,7 @@ public class PacketSearch implements IPacket {
 		twSearcher.search(packet, search, mode);
 
 		ManagerPacket.sendPacket(ctx, packet);
+		cache.addToCache(fId, packet);
 		return false;
 	}
 
