@@ -19,10 +19,16 @@ public class TwitterSearcher {
 	public TwitterSearcher() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("TVOvXzJopg25XLao1SPBSqIgi")
-                .setOAuthConsumerSecret("teE7QTTcg94k9UbK0O8Ho88ESejhdraWGdbKXs2KRCtxV3i5Qk")
-                .setOAuthAccessToken("2510636970-y3ImfObqKC6Q8Z7d80QUo43WUmd17cBaM5sCADE")
-                .setOAuthAccessTokenSecret("dkuGpfGASezJ6tM33eNBwj2IfyizeHhxoKOSNdYVBsusz");
+                .setOAuthConsumerKey("App Consumer Key") //https://apps.twitter.com/
+                .setOAuthConsumerSecret("Secret App Consumer Key") //https://apps.twitter.com/
+                .setOAuthAccessToken("OAuth Token")
+                .setOAuthAccessTokenSecret("OAuth Private Token");
+				/*
+				Make a OAuth autentification and get a token, once you get a token you can set
+				it with cb.setOAuthAcessToken(token) and cb.setOAuthAcessTokenSecret(token)
+				More information about accesTokens: https://dev.twitter.com/oauth/overview/application-owner-access-tokens
+				Code Example of OAuth using Twitter4J: \uCode2017\src\test\java\Twitter4J\OAuthAcessToken.java	
+				*/
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
 	}

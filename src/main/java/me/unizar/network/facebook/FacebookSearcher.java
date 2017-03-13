@@ -21,10 +21,14 @@ public class FacebookSearcher {
 
 		// Set application id, secret key and access token
 		// Get from developers.facebook.com by just creating a new app.
-		confBuilder.setOAuthAppId("686574691515191");
-		confBuilder.setOAuthAppSecret("a4440d5428aeb5ffe53777d90113a98e");
-		confBuilder.setOAuthAccessToken(
-				"EAAJwb6CZAezcBAEbW3UmExAmxfKYZCxXKt6DWRcAUgTFQ04H1iSSmYIEvdsWZCAkkZC0uxcSZATo3j9JDJQcZCiJ1dVZAJhuXmBzJY28yUCvBUZCrMLTr4aS2ZBkbDT79l4Tiw5fSpZCDbq5n2ytTWHVZB2ufpfMWI2alLVsq0ZC9Vml3wwRhF75RwimgYHxeAooZCPQZD");
+		confBuilder.setOAuthAppId("Your App Id"); //https://developers.facebook.com/apps
+		confBuilder.setOAuthAppSecret("Your App Secret ID"); //https://developers.facebook.com/apps
+		confBuilder.setOAuthAccessToken("OAuth Token");
+				/*
+				Make a OAuth autentification and get a token, once you get a token you can set
+				it with der.setOAuthAcessToken(token)
+				More information about accesTokens: https://developers.facebook.com/docs/facebook-login/access-tokens
+				*/
 
 		// Set permission
 		confBuilder.setOAuthPermissions("email,publish_stream, id, name, first_name, last_name, generic");
