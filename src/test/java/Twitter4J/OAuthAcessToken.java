@@ -16,9 +16,8 @@ import java.io.InputStreamReader;
 
 public class OAuthAcessToken {
 
-    public AccessToken GetAcessToken(Twitter twitter) throws IOException {
-		/*
-		twitter must be inicialized with a (TwitterFactory)tf.getInstance()
+    public AccessToken GetAcessToken(Twitter twitter){
+		/*twitter must be initialized with a (TwitterFactory)tf.getInstance()
 		tf must be build with a configurationBuilder cb set with Consumer and Secret key
 		Example code:
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -36,7 +35,7 @@ public class OAuthAcessToken {
             System.out.println("Got request token.");
             System.out.println("Request token: " + requestToken.getToken());
             System.out.println("Request token secret: " + requestToken.getTokenSecret());
-            
+
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
@@ -63,7 +62,10 @@ public class OAuthAcessToken {
             System.out.println("Access token: " + accessToken.getToken());
             System.out.println("Access token secret: " + accessToken.getTokenSecret());
         } catch (TwitterException e) {
-            System.out.println("Error getting OAuthRequest Token");
+            System.out.println("TwitterException - Error getting OAuthRequest Token");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("IOException - Error reading PING");
             e.printStackTrace();
         }
         return accessToken;
