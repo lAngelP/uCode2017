@@ -17,7 +17,8 @@ import java.io.InputStreamReader;
 public class OAuthAcessToken {
 
     public AccessToken GetAcessToken(Twitter twitter) throws IOException {
-		/*twitter must be inicialized with a (TwitterFactory)tf.getInstance()
+		/*
+		twitter must be inicialized with a (TwitterFactory)tf.getInstance()
 		tf must be build with a configurationBuilder cb set with Consumer and Secret key
 		Example code:
 		ConfigurationBuilder cb = new ConfigurationBuilder();

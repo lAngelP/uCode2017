@@ -19,16 +19,16 @@ public class TwitterSearcher {
 	public TwitterSearcher() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("App Consumer Key") //https://apps.twitter.com/
-                .setOAuthConsumerSecret("Secret App Consumer Key") //https://apps.twitter.com/
-                .setOAuthAccessToken("OAuth Token")
-                .setOAuthAccessTokenSecret("OAuth Private Token");
-				/*
-				Make a OAuth autentification and get a token, once you get a token you can set
-				it with cb.setOAuthAcessToken(token) and cb.setOAuthAcessTokenSecret(token)
-				More information about accesTokens: https://dev.twitter.com/oauth/overview/application-owner-access-tokens
-				Code Example of OAuth using Twitter4J: \uCode2017\src\test\java\Twitter4J\OAuthAcessToken.java	
-				*/
+			.setOAuthConsumerKey("App Consumer Key") //https://apps.twitter.com/
+			.setOAuthConsumerSecret("Secret App Consumer Key") //https://apps.twitter.com/
+			.setOAuthAccessToken("OAuth Token")
+			.setOAuthAccessTokenSecret("OAuth Private Token");
+			/*
+			Make a OAuth autentification and get a token, once you get a token you can set
+			it with cb.setOAuthAcessToken(token) and cb.setOAuthAcessTokenSecret(token)
+			More information about accesTokens: https://dev.twitter.com/oauth/overview/application-owner-access-tokens
+			Code Example of OAuth using Twitter4J: \uCode2017\src\test\java\Twitter4J\OAuthAcessToken.java	
+			*/
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
 	}

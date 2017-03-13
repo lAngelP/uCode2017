@@ -24,11 +24,11 @@ public class FacebookSearcher {
 		confBuilder.setOAuthAppId("Your App Id"); //https://developers.facebook.com/apps
 		confBuilder.setOAuthAppSecret("Your App Secret ID"); //https://developers.facebook.com/apps
 		confBuilder.setOAuthAccessToken("OAuth Token");
-				/*
-				Make a OAuth autentification and get a token, once you get a token you can set
-				it with der.setOAuthAcessToken(token)
-				More information about accesTokens: https://developers.facebook.com/docs/facebook-login/access-tokens
-				*/
+		/*
+		Make a OAuth autentification and get a token, once you get a token you can set
+		it with der.setOAuthAcessToken(token)
+		More information about accesTokens: https://developers.facebook.com/docs/facebook-login/access-tokens
+		*/
 
 		// Set permission
 		confBuilder.setOAuthPermissions("email,publish_stream, id, name, first_name, last_name, generic");
